@@ -14,15 +14,15 @@ class CreateTblCategoriesTable extends Migration
     public function up()
     {
         Schema::create('tbl_categories', function (Blueprint $table) {
-            $table->increments('category_id');
-            $table->string('category_name', 50);
-            $table->unsignedInteger('parent_id')->default(0);
+            $table->increments('id');
+            $table->string('name', 50)->unique();
+            $table->unsignedInteger('parentId')->nullable();
             $table->string('image', 255)->nullable();
             $table->tinyInteger('location')->default(0);
             $table->tinyInteger('highlight')->default(0);
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
-            $table->foreign('parent_id')->references('category_id')->on('tbl_categories')->onDelete('cascade');
+            $table->foreign('parentId')->references('id')->on('tbl_categories')->onDelete('cascade');
         });
     }
 

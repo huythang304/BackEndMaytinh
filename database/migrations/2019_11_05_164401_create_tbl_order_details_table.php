@@ -15,7 +15,11 @@ class CreateTblOrderDetailsTable extends Migration
     {
         Schema::create('tbl_order_details', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->timestamps();
+            $table->unsignedBigInteger('orderId');
+            $table->unsignedBigInteger('productId');
+            $table->Integer('quantity');
+            $table->foreign('orderId')->references('id')->on('tbl_orders')->onDelete('cascade');
+            $table->foreign('productId')->references('id')->on('tbl_products')->onDelete('cascade');
         });
     }
 

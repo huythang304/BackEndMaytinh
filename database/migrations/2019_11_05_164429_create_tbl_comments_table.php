@@ -15,7 +15,13 @@ class CreateTblCommentsTable extends Migration
     {
         Schema::create('tbl_comments', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('productId');
+            $table->unsignedBigInteger('userId');
+            $table->text('content');
+            $table->tinyInteger('status')->default(1);
             $table->timestamps();
+            $table->foreign('userId')->references('id')->on('tbl_users')->onDelete('cascade');
+            $table->foreign('productId')->references('id')->on('tbl_products')->onDelete('cascade');
         });
     }
 
